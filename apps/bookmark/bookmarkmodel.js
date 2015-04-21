@@ -36,11 +36,9 @@ var BookmarkModel =  module.exports = function(environment) {
 		});
 	};
 	
-
+	//TODO Strip this of the annotation: we only create a bookmark and deal with its tags
 	self.createAnnotationAndTags = function(bookmarkNode, blog, userTopic, credentials, callback) {
 		myEnvironment.logDebug("BBBB "+JSON.stringify(userTopic));
-		//TODO create the position node
-		//copy from conversationmodel (move to common model?)
 		//Deal with tags
 		var lang = blog.language,
 			url = blog.url,
@@ -51,58 +49,45 @@ var BookmarkModel =  module.exports = function(environment) {
 		if (!lang) {lang = "en";}
 
 		topicMapEnvironment.logDebug("BookmarkModel.createAnnotationAndTags "+bookmarkNode.toJSON());
-		//contextLocator, parentNode,newLocator, 
-		//nodeType, subject, body, language, smallIcon, largeIcon,
-		//  credentials, userLocator, isPrivate, callback
-		TopicModel.createTreeNode(bookmarkNode.getLocator(), bookmarkNode, "", types.NOTE_TYPE,
-						blog.subject, blog.body, lang, icons.NOTE_SM, icons.NOTE,
-						credentials, userTopic.getLocator(), isPrivate, function boomkarkMCreateTreeNode(err, data) {
-			var positionNode = data;
-			positionNode.setResourceUrl(url);
-			if (!isPrivate) {
-			  myEnvironment.addRecentConversation(positionNode.getLocator(),blog.subject);
-			}
-			if (err) {error += err;}
+
 			var taglist = CommonModel.makeTagList(blog);
 			topicMapEnvironment.logDebug("BookmarkModel.createAnnotationAndTags-1 "+JSON.stringify(taglist));
 	        if (taglist.length > 0) {
-				TagModel.processTagList(taglist, userTopic, positionNode, credentials, function bookmarkMProcessTags(err, result) {
+				TagModel.processTagList(taglist, userTopic, bookmarkNode, credentials, function bookmarkMProcessTags(err, result) {
 					console.log('NEW_POST-1 '+result);
 					//result could be an empty list;
 					//TagModel already added Tag_Doc and Doc_Tag relations
-					console.log("ARTICLES_CREATE_2 "+JSON.stringify(positionNode));
-					DataProvider.putNode(positionNode, function bookmarkMPutNode(err, data) {
+					console.log("ARTICLES_CREATE_2 "+JSON.stringify(bookmarkNode));
+					DataProvider.putNode(bookmarkNode, function bookmarkMPutNode(err, data) {
 						console.log('ARTICLES_CREATE-3 '+err);	  
 						if (err) {error += err;}
 						console.log('ARTICLES_CREATE-3b '+userTopic);	  
-						TopicModel.relateExistingNodesAsPivots(userTopic ,positionNode, types.CREATOR_DOCUMENT_RELATION_TYPE,
+						TopicModel.relateExistingNodesAsPivots(userTopic ,bookmarkNode, types.CREATOR_DOCUMENT_RELATION_TYPE,
 														userTopic.getLocator(), icons.RELATION_ICON, icons.RELATION_ICON,
 														isPrivate, credentials, function bookmarkMRelateNodes(err, data) {
 							if (err) {error += err;}
-							return callback(error,positionNode.getLocator());
+							return callback(error,bookmarkNode.getLocator());
 						}); //r1
 					}); //putnode 		  
 				}); // processtaglist
 	        } else {
-	            DataProvider.putNode(positionNode, function bookmarkMPutNode1(err, data) {
+	            DataProvider.putNode(bookmarkNode, function bookmarkMPutNode1(err, data) {
 					console.log('ARTICLES_CREATE-3 '+err);	  
 					if (err) {error += err;}
 					console.log('ARTICLES_CREATE-3b '+userTopic);	  
-					TopicModel.relateExistingNodesAsPivots(userTopic, positionNode,types.CREATOR_DOCUMENT_RELATION_TYPE,
+					TopicModel.relateExistingNodesAsPivots(userTopic, bookmarkNode,types.CREATOR_DOCUMENT_RELATION_TYPE,
 		              			userTopic.getLocator(), icons.RELATION_ICON, icons.RELATION_ICON,
 		              			isPrivate, credentials, function bookmarkMRelateNodes1(err, data) {
 		      			if (err) {error += err;}
-						return callback(error, positionNode.getLocator());
+						return callback(error, bookmarkNode.getLocator());
 					}); //r1
 				}); //putnode 		  
 	        }
-		});
 	};
 	/**
 	 * This is a bookmark. A bookmark for this URL might already exist.
 	 * If so, we simply add a new AIR to it. Bookmark form has URL, title, subject, body, tags.
 	 * If the bookmark doesn't exist, create it.
-	 * Given the bookmark, then create a Position node with it as the conversation root.
 	 */
 	self.create = function (blog, user, credentials, callback) {
 		topicMapEnvironment.logDebug('BOOKMARK.create '+JSON.stringify(blog));
@@ -151,7 +136,6 @@ var BookmarkModel =  module.exports = function(environment) {
 					    	  if (!lang) {lang = "en";}
 					    	  var subj = blog.title;
 					    	  article.setSubject(subj,lang,userLocator);
-					    	  article.setBody("",lang,userLocator);
 					    	  article.setResourceUrl(url);
 					    	  if (!isPrivate) {
 							  	myEnvironment.addRecentBookmark(bookmarkTopic.getLocator(), blog.title);
