@@ -1,0 +1,258 @@
+
+
+    <!--===========================================================================================
+    // This is the Webble World index file, it is the starting point for everything to do about
+    // Webbles. Webbles Requires HTML5, CSS3, XML and JQuery (JavaScript) in order to run properly
+    // and can then run in most common browsers and devices.
+    // Webbles are independent Web based objects that can be manipulated and connected with
+    // other Webbles to form any type of imaginable web software or widgets.
+    // Webble World is the environment where the Webbles live and multiply. The content of a
+    // Webble can be anything the developer of a Webble can think of and a user can change and
+    // fill that after his/her own mind. In fact a webble can contain anything found online, and
+    // sometimes even offline, in order to re-shape and recreate the web as you know it.
+    // Webble World is a Power tool and Webbles are the building blocks.
+    //===========================================================================================-->
+<div style="display:none;" class="webblePlatform" data-ng-controller="PlatformCtrl"
+          data-ng-style="{'cursor' : mouseCursor}"
+          data-ng-keydown="onEventHandler_KeyDown($event);" data-ng-keyup="onEventHandler_KeyUp($event);">
+
+        <link rel="stylesheet" type="text/css" href="/css/reset.min.css">
+        <!--<link rel="stylesheet" type="text/css" href="http://reset5.googlecode.com/hg/reset.min.css" />-->
+
+        <!--JQuery UI styles-->
+        <link rel="stylesheet" href="/js/jquery-ui.css" />
+        <link href="/css/jquery.contextMenu.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" />-->
+
+        <!-- CSS from installed libraries -->
+        <link rel="stylesheet" href="/css/bootstrap.css">
+        <link rel="stylesheet" href="/css/font-awesome.css">
+        <link rel="stylesheet" href="/css/xeditable.css">
+
+        <!--Main App styles-->
+        <!-- build:css styles/platform.css -->
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/platform.css"/>
+        <!-- endbuild -->
+
+        <!-- Shims for backwards-compatibility and extra functionality (needs to be above other libs) -->
+        <script src="/js/angular-file-upload-shim.js"></script>
+
+        <!-- 3rd Party JavaScript Libraries, JQuery etc -->
+        <script src="/js/jquery.js"></script>
+        <script src="/js/jquery-ui.js"></script>
+        <script src="/js/jquery.ui.touch-punch.js"></script>
+        <script src="/js/jquery.contextMenu.js"></script>
+        <script src="/js/jquery.ui.position.js"></script>
+        <script src="/js/webfont.js"></script>
+        <script src="/js/jquery.mobile.custom.min.js"></script>
+
+        <!-- Apparently, this needs to be loaded before angular js (jgeorgal)-->
+        <script type="text/javascript" src="/js/ace.js"></script>
+
+        <!-- AngularJS - MAIN -->
+        <script src="/js/angular.js"></script>
+
+
+        <!-- build:js scripts/modules.js -->
+        <script src="/js/angular-resource.js"></script>
+        <script src="/js/angular-sanitize.js"></script>
+        <script src="/js/angular-route.js"></script>
+        <script src="/js/angular-animate.js"></script>
+        <script src="/js/angular-touch.js"></script>
+        <script src="/js/gestures.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js scripts/plugins.js -->
+        <script src="/js/angular-gettext.js"></script>
+        <script src="/js/ui-bootstrap-tpls.js"></script>
+        <script src="/js/xeditable.js"></script>
+        <script src="/js/ui-ace.js"></script>
+        <script src="/js/angular-file-upload.js"></script>
+
+        <script src="/js/textAngular.min.js"></script>
+        <!-- endbuild -->
+
+        <!-- AngularJS - External Modules -->
+        <!-- build:js scripts/externalModules.js -->
+        <script src="scripts/modules/localStorageModule.js"></script>
+        <!-- endbuild -->
+
+
+        <!-- Helper JavaScript Libraries -->
+
+        <script src="/js/html2canvas.js"></script> <!--For autogenerating screenshots of webbles-->
+
+        <!-- build:js scripts/helpLib.js -->
+        <script src="/js/hamster.js"></script> <!--For Mouse Wheel support-->
+        <script src="/js/Blob.js"></script> <!--For Save File Locally support-->
+        <script src="/js/FileSaver.js"></script> <!--For Save File Locally support-->
+        <!-- endbuild -->
+
+
+        <!-- Main App Internal JavaScript -->
+        <script src="/js/supportPlugins.js"></script>
+        <script src="/js/supportFunctions.js"></script>
+        <script src="/js/overrideSettings.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<!--
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-XXXXX-X');
+        ga('send', 'pageview');
+        </script>
+-->
+
+        <script type="text/javascript">
+            // The body is hidden completely until the whole page is finished loading and then it is displayed, this is
+            // to make sure that any possible alert messages that might be displayed during loading will not break
+            // the rendering and show half done non-cloaked elements.
+            $(document).ready(function() {
+                $('body').show();
+            });
+        </script>
+    <!--=====================================================================================
+    // If the browser does not allow JavaScript or is just way to old and worthless the
+    // application can not be run at all, but we can still be nice about it and display a
+    // normal html page with some info which runs only if javascript is disabled or otherwise
+    // unavailable.
+    //=====================================================================================-->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 7]>
+    <p class="browsehappy"><span translate>You are using an </span><strong><span translate>outdated</span></strong><span translate> browser. Please </span><a href="http://browsehappy.com/"><span translate>upgrade your browser</span></a><span translate> to improve your experience.</span></p>
+    <![endif]-->
+
+    <noscript>
+        <p translate>
+            Dear Visitor,
+        </p>
+
+        <p> <span translate>You are now experiencing the total lack of an interactive Meme media, technology enhanced, user interactive web site.</span><br/>
+            <span translate>What was supposed to be your greatest day on the Internet where you would make acquaintance with something called Webble World,</span> <br/>
+            <span translate>created by Meme Media Lab on Hokkaido University in Japan, by the supervision and inspiration of Professor Yuzuru Tanaka, based on the</span> <br/>
+            <span translate>architecture of IntelligentPads, has now turned into something completely different; a time of remorse and sadness.</span><br/>
+            <span translate>And this is because of one reason only... one tiny but yet so important reason...</span><br/>
+            <b><span translate>your web browser is not fully equipped or preset correctly</span></b>.</p>
+
+        <p><span translate>We, the Webble World development team, strongly urge you to do everything in your power to change that,</span><br/>
+            <span translate>so that you can enjoy Webbles and their powers together with the rest of us.</span></p>
+
+        <p><span translate>for more information about Webbles and Intelligent Pad, please visit </span>
+            <a href="http://www.youtube.com/watch?v=zwoTThcr0yE">
+                <span translate>Meme Media Lab YouTube Page.</span>
+            </a>
+        </p>
+
+        <p><span translate>Best Regards/</span><br/>
+            <span translate>Webble World - development team</span></p>
+    </noscript>
+
+    <!--=====================================================================================
+    // Here starts the Webble World Fully Functioning Body Code
+    //=====================================================================================-->
+
+
+ 
+
+    <!--=====================================================================================
+    // This is Progress bar and progress indicator that can be displayed and used when needed
+    //=====================================================================================-->
+    <div class="centerCenter progressIndicator" data-ng-show="progressManager.isWorking" style="z-index: 200000">
+        <img style="width: 100px; height: 100px;" src="images/ajax-loader.gif">
+    </div>
+    <div class="span4 centerCenter progressBar" data-ng-show="progressManager.isLoading">
+      <progress percent="progressManager.soFarLevel" class="progress-warning progress-striped active" />
+    </div>
+    <!--=============================================================================-->
+
+    <!--=====================================================================================
+    // This is the Webble habitat surface area a.k.a. WorkSurface
+    //=====================================================================================-->
+    <div data-ng-view ng-style="{'margin-top': wsTopPos}">
+        <!-- Do not put anynthing here from within the html template file. Whatever is
+             supposed to be here must come from outside via views, directives and
+             controllers etc-->
+    </div>
+    <!--=============================================================================-->
+
+    <!--=====================================================================================
+    // LE CHAT COMPONENT
+    //====================================================================================-->
+    <div class="bottom-right" style="z-index: 999;" ng-include src="'views/chat.html'"></div>
+    <!--=============================================================================-->
+
+
+    <!-- Application specific AngularJS files -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/translations.js"></script>
+
+    <script src="scripts/services/services.js"></script>
+    <script src="scripts/filters/filters.js"></script>
+    <script src="scripts/directives/directives.js"></script>
+    <script src="scripts/directives/stop-event.js"></script>
+    <script src="scripts/controllers/platform.js"></script>
+    <script src="scripts/controllers/workSpaces.js"></script>
+    <script src="scripts/controllers/mediaPlayer.js"></script>
+    <script src="scripts/controllers/reroute.js"></script>
+    <script src="scripts/controllers/wblCore.js"></script>
+    <script src="scripts/controllers/interactionObject.js"></script>
+    <script src="scripts/controllers/multiWblPropsForm.js"></script>
+    <script src="scripts/controllers/connRelVisualization.js"></script>
+    <script src="scripts/controllers/modalForms/wblProperties.js"></script>
+    <script src="scripts/controllers/modalForms/wblSlotConn.js"></script>
+    <script src="scripts/controllers/modalForms/wblProtection.js"></script>
+    <script src="scripts/controllers/modalForms/addCustSlot.js"></script>
+    <script src="scripts/controllers/modalForms/infoMsg.js"></script>
+    <script src="scripts/controllers/modalForms/publishWebble.js"></script>
+    <script src="scripts/controllers/modalForms/loadWebble.js"></script>
+    <script src="scripts/controllers/modalForms/openWS.js"></script>
+    <script src="scripts/controllers/modalForms/saveWSAs.js"></script>
+    <script src="scripts/controllers/modalForms/shareWS.js"></script>
+    <script src="scripts/controllers/modalForms/platformProps.js"></script>
+    <script src="scripts/controllers/modalForms/platformLangPick.js"></script>
+    <script src="scripts/controllers/modalForms/searchWbl.js"></script>
+    <script src="scripts/controllers/modalForms/about.js"></script>
+    <script src="scripts/controllers/modalForms/faq.js"></script>
+    <script src="scripts/controllers/modalForms/wblAbout.js"></script>
+    <script src="scripts/controllers/modalForms/bundle.js"></script>
+    <script src="scripts/controllers/chat.js"></script>
+    <script src="scripts/controllers/modalForms/rateWbl.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
+    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/controllers/templates.js"></script>
+    <script src="scripts/services/templates.js"></script>
+    <script src="webbles/bundleTemplate/0/controllers.js"></script> <!-- Micke, what is this doing here ??? -->
+    <script src="scripts/services/workspaces.js"></script>
+    <script src="scripts/services/socket.js"></script>
+    <script src="scripts/controllers/draw.js"></script>
+    <script src="scripts/directives/drawing.js"></script>
+    <script src="scripts/controllers/groups.js"></script>
+    <script src="scripts/controllers/data.js"></script>
+    <script src="scripts/controllers/adm.js"></script>
+    <script src="scripts/services/users.js"></script>
+    <script src="scripts/services/confirm.js"></script>
+    <script src="scripts/services/licenses.js"></script>
+    <script src="scripts/services/server.js"></script>
+    <script src="scripts/directives/confirm-value.js"></script>
+    <script src="scripts/directives/movable.js"></script>
+    <script src="scripts/directives/closeable.js"></script>
+    <script src="scripts/directives/visualization.js"></script>
+    <script src="scripts/directives/keep-on-top.js"></script>
+    <script src="scripts/directives/editors/license-key-editor.js"></script>
+    <!-- endbuild -->
+    <!-- END - AngularJS ------------------------>
+
+    <!-- Socket-io support -->
+    <script src="/socket.io/socket.io.js"></script>
+<div>

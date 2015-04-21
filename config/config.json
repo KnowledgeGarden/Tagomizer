@@ -1,0 +1,10 @@
+{
+    "server": "localhost",
+    "port": "3000",
+    "brand": "Tagomizer",
+    "defaultadminemail": "changeme@changeme.org",
+    "defaultadminpwd": "changeme!",
+    "portalIsPrivate": false,
+    "invitationOnly": false,
+    "clusters": [ {"host":"localhost","port":"9500"}]
+}
